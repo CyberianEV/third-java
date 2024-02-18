@@ -1,13 +1,14 @@
 package ru.gb.java_third.multithreadng;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 
 public class Race {
-    private ArrayList<Stage> stages;
-    public ArrayList<Stage> getStages() {
+    private Vector<Stage> stages;
+    public Vector<Stage> getStages() {
         return stages;
-    } public Race(Stage... stages) {
-        this.stages = new ArrayList<>(Arrays.asList(stages));
+    }
+    public Race(Stage... stages) {
+        this.stages = new Vector<>(Arrays.asList(stages));
     }
 }

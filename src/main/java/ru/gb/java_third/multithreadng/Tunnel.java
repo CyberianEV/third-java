@@ -1,21 +1,27 @@
 package ru.gb.java_third.multithreadng;
 
+import java.util.concurrent.Semaphore;
+
 public class Tunnel extends Stage {
-    public Tunnel() {
+    private final Semaphore tunnelBottleNeck;
+    public Tunnel(Semaphore tunnelBottleNeck) {
         this.length = 80;
         this.description = "Tunnel " + length + " meters";
+        this.tunnelBottleNeck = tunnelBottleNeck;
     }
     @Override
     public void go(Car c) {
         try {
             try {
                 System.out.println(c.getName() + " is preparing for the stage(waiting): " + description);
+                tunnelBottleNeck.acquire();
                 System.out.println(c.getName() + " has started the stage: " + description);
                 Thread.sleep(length / c.getSpeed() * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
                 System.out.println(c.getName() + " has finished the stage: " + description);
+                tunnelBottleNeck.release();
             }
         } catch (Exception e) {
             e.printStackTrace();

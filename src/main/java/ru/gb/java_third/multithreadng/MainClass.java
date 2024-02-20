@@ -11,11 +11,10 @@ public class MainClass {
     public static final CountDownLatch startLine = new CountDownLatch(CARS_COUNT);
     public static final CountDownLatch finishLine = new CountDownLatch(CARS_COUNT);
     public static final CyclicBarrier anotherStartLine = new CyclicBarrier(CARS_COUNT);
-    public static final Semaphore tunnelBottleNeck = new Semaphore(CARS_COUNT / 2);
     public static final Lock finishFlag = new ReentrantLock();
     public static void main(String[] args) {
         System.out.println("IMPORTANT ANNOUNCEMENT >>> Preparation!!!");
-        Race race = new Race(new Road(60), new Tunnel(tunnelBottleNeck), new Road(40));
+        Race race = new Race(new Road(60), new Tunnel(CARS_COUNT / 2), new Road(40));
         Car[] cars = new Car[CARS_COUNT];
         for (int i = 0; i < cars.length; i++) {
             cars[i] = new Car(race, 20 + (int) (Math.random() * 10), startLine, anotherStartLine, finishLine, finishFlag);
